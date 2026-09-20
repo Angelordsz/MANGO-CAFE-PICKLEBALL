@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>Reservations · Back office</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('mdc-theme');
+      var dark  = saved ? saved === 'dark'
+                        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div id="preview-banner" style="position:sticky;top:0;z-index:200;background:#0f172a;color:#fff;
+     font-size:.82rem;padding:9px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+     border-bottom:2px solid #a3e635;font-family:-apple-system,'Segoe UI',sans-serif">
+  <strong style="color:#a3e635">STATIC PREVIEW</strong>
+  <span style="opacity:.85">Real screens, sample data &mdash; no live database. Forms are disabled.</span>
+  <span style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap">
+    <a href="dashboard.html" style="color:#fff;text-decoration:underline">View as customer</a>
+    <a href="admin-dashboard.html" style="color:#fff;text-decoration:underline">View as admin</a>
+    <a href="https://github.com/Angelordsz/MANGO-CAFE-PICKLEBALL" style="color:#fff;text-decoration:underline">Source code</a>
+  </span>
+</div>
+
+
+<a class="skip-link" href>Skip to main content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <button type="button" class="icon-btn no-print" data-sidebar-toggle aria-expanded="false" aria-label="Toggle menu"
+            style="display:grid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18"/></svg>    </button>
+
+    <a href="admin-dashboard.html" class="brand">
+      <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><ellipse cx="11" cy="9" rx="6.5" ry="7.5"/><path d="M13.5 16.5 16 22"/></svg></span>
+      <span class="brand-text">
+        Mango Drive
+        <span>Administrator</span>
+      </span>
+    </a>
+
+    <div class="topbar-actions">
+      <button type="button" class="icon-btn no-print" data-theme-toggle aria-label="Switch colour theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M1.5 12H4M20 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>      </button>
+
+      <div class="menu" data-menu>
+        <button type="button" class="avatar" data-menu-trigger aria-haspopup="true" aria-label="Account menu">
+          AD        </button>
+        <div class="menu-panel" data-menu-panel>
+          <div style="padding:9px 12px">
+            <strong style="display:block">admin</strong>
+            <span class="small muted">Admin</span>
+          </div>
+          <div class="menu-divider"></div>
+          <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg> View public site</a>
+          <div class="menu-divider"></div>
+          <form method="post" action="index.html">
+            <input type="hidden" name="_token" value="853ea9799031ed9339343904396699c89b96cd3dd6fec8de74995b458820ec17">            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg> Log out</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container page">
+  <div class="admin-shell">
+
+    <nav class="sidebar no-print" aria-label="Back office">
+      <div class="sidebar-group">
+        <p class="sidebar-title">Overview</p>
+        <a href="admin-dashboard.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12.5" y="8" width="3" height="10"/><rect x="18" y="5" width="3" height="13"/></svg> Dashboard
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Reservations</p>
+        <a href="admin-reservations.html" class="active">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg> Reservations
+          <span class="count">5</span>        </a>
+        <a href="admin-schedules.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/></svg> Facility schedules
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Players &amp; play</p>
+        <a href="admin-players.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M17 8.2a3 3 0 0 1 0 5.6M18 20c0-2.2-.8-3.9-2-5"/></svg> Player records
+        </a>
+        <a href="admin-matching.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6M4 4l5 5"/></svg> Player matching
+        </a>
+        <a href="admin-events.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/><path d="M12 14v4M8.5 21h7l-.5-3h-6Z"/></svg> Events
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Money</p>
+        <a href="admin-payments.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg> Payments
+        </a>
+        <a href="admin-reports.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Reports
+        </a>
+      </div>
+
+              <div class="sidebar-group">
+          <p class="sidebar-title">Facilities</p>
+          <a href="admin-courts.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg> Courts
+          </a>
+          <a href="admin-halls.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg> Function halls
+          </a>
+        </div>
+
+        <div class="sidebar-group">
+          <p class="sidebar-title">Administration</p>
+          <a href="admin-users.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg> User accounts
+          </a>
+          <a href="admin-notifications.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg> Send notifications
+          </a>
+          <a href="admin-logs.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg> System logs
+          </a>
+          <a href="admin-settings.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></svg> Settings
+          </a>
+        </div>
+          </nav>
+
+    <main id="main">
+      
+      <div class="row-between mb-2">
+  <div>
+    <h1 style="margin:0">Reservations</h1>
+    <p class="small muted" style="margin:0">Approve, reject, reschedule and track every booking.</p>
+  </div>
+  <a href="admin-reservation-create.html" class="btn btn-primary btn-sm no-print">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg> New booking
+  </a>
+</div>
+
+<div class="grid grid-4 mb-2">
+  <a href="admin-reservations.html" class="stat stat-accent card-link">
+    <p class="stat-label">Pending</p>
+    <p class="stat-value">5</p>
+  </a>
+  <a href="admin-reservations.html" class="stat card-link">
+    <p class="stat-label">Approved</p>
+    <p class="stat-value">9</p>
+  </a>
+  <a href="admin-reservations.html" class="stat card-link">
+    <p class="stat-label">Completed</p>
+    <p class="stat-value">6</p>
+  </a>
+  <a href="admin-reservations.html" class="stat card-link">
+    <p class="stat-label">Cancelled</p>
+    <p class="stat-value">2</p>
+  </a>
+</div>
+
+<form method="get" action="admin-reservations.html" class="filters no-print" data-auto-filter>
+  <div class="field">
+    <label for="q">Search</label>
+    <input type="search" id="q" name="q" class="input" value=""
+           placeholder="Code, name or phone">
+  </div>
+
+  <div class="field">
+    <label for="status">Status</label>
+    <select id="status" name="status" class="select">
+      <option value="">All statuses</option>
+              <option value="pending" >
+          Pending        </option>
+              <option value="approved" >
+          Approved        </option>
+              <option value="rejected" >
+          Rejected        </option>
+              <option value="cancelled" >
+          Cancelled        </option>
+              <option value="completed" >
+          Completed        </option>
+              <option value="no_show" >
+          No Show        </option>
+          </select>
+  </div>
+
+  <div class="field">
+    <label for="type">Facility</label>
+    <select id="type" name="type" class="select">
+      <option value="">All facilities</option>
+      <option value="court"         >Courts</option>
+      <option value="function_hall" >Function hall</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="date">Date</label>
+    <input type="date" id="date" name="date" class="input" value="">
+  </div>
+
+  <div class="field" style="flex:0 0 auto">
+    <button type="submit" class="btn btn-outline"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 5h18l-7 8v6l-4 2v-8Z"/></svg> Filter</button>
+  </div>
+</form>
+
+<div class="card card-flush">
+      <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Customer</th>
+            <th>Facility</th>
+            <th>Date &amp; time</th>
+            <th>Source</th>
+            <th>Status</th>
+            <th class="text-right">Amount</th>
+            <th class="text-right">Paid</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000023</code></td>
+              <td>
+                <strong class="small">Marco Villanueva</strong>
+                <span class="tiny muted" style="display:block">0917 555 0101</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Oct 4                <span class="muted">8:00 AM – 9:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000022</code></td>
+              <td>
+                <strong class="small">Marco Villanueva</strong>
+                <span class="tiny muted" style="display:block">0917 555 0101</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Oct 4                <span class="muted">7:00 AM – 8:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000021</code></td>
+              <td>
+                <strong class="small">Divina Salazar</strong>
+                <span class="tiny muted" style="display:block">0926 555 0202</span>
+              </td>
+              <td class="small">Garden Pavilion</td>
+              <td class="nowrap small">
+                Sep 30                <span class="muted">3:00 PM – 6:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Walk In</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱3,600.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000019</code></td>
+              <td>
+                <strong class="small">Carmela Dizon</strong>
+                <span class="tiny muted" style="display:block">0920 555 0104</span>
+              </td>
+              <td class="small">Garden Pavilion</td>
+              <td class="nowrap small">
+                Sep 26                <span class="muted">11:00 AM – 2:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-warn">Pending</span></td>
+              <td class="text-right nowrap">₱3,600.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000016</code></td>
+              <td>
+                <strong class="small">Marco Villanueva</strong>
+                <span class="tiny muted" style="display:block">0917 555 0101</span>
+              </td>
+              <td class="small">Court 4 — Practice</td>
+              <td class="nowrap small">
+                Sep 26                <span class="muted">10:00 AM – 11:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-bad">Cancelled</span></td>
+              <td class="text-right nowrap">₱250.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000015</code></td>
+              <td>
+                <strong class="small">Grace Fernandez</strong>
+                <span class="tiny muted" style="display:block">0930 555 0206</span>
+              </td>
+              <td class="small">Court 2 — Garden</td>
+              <td class="nowrap small">
+                Sep 25                <span class="muted">5:00 PM – 7:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-warn">Pending</span></td>
+              <td class="text-right nowrap">₱700.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000014</code></td>
+              <td>
+                <strong class="small">Enzo Lim</strong>
+                <span class="tiny muted" style="display:block">0929 555 0205</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Sep 24                <span class="muted">7:00 AM – 8:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000013</code></td>
+              <td>
+                <strong class="small">Mimi Torres</strong>
+                <span class="tiny muted" style="display:block">0928 555 0204</span>
+              </td>
+              <td class="small">Court 3 — Covered</td>
+              <td class="nowrap small">
+                Sep 23                <span class="muted">6:00 PM – 8:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-warn">Pending</span></td>
+              <td class="text-right nowrap">₱800.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000018</code></td>
+              <td>
+                <strong class="small">Liza Ramos</strong>
+                <span class="tiny muted" style="display:block">0918 555 0102</span>
+              </td>
+              <td class="small">Mango Function Hall</td>
+              <td class="nowrap small">
+                Sep 23                <span class="muted">2:00 PM – 6:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱7,200.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000012</code></td>
+              <td>
+                <strong class="small">Paolo Reyes</strong>
+                <span class="tiny muted" style="display:block">0927 555 0203</span>
+              </td>
+              <td class="small">Court 2 — Garden</td>
+              <td class="nowrap small">
+                Sep 22                <span class="muted">4:00 PM – 5:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Phone</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000011</code></td>
+              <td>
+                <strong class="small">Ramon Cruz</strong>
+                <span class="tiny muted" style="display:block">0925 555 0201</span>
+              </td>
+              <td class="small">Court 4 — Practice</td>
+              <td class="nowrap small">
+                Sep 22                <span class="muted">9:00 AM – 11:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-warn">Pending</span></td>
+              <td class="text-right nowrap">₱500.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000010</code></td>
+              <td>
+                <strong class="small">Liza Ramos</strong>
+                <span class="tiny muted" style="display:block">0918 555 0102</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Sep 21                <span class="muted">5:00 PM – 6:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-warn">Pending</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-pending.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000009</code></td>
+              <td>
+                <strong class="small">Nico Aguilar</strong>
+                <span class="tiny muted" style="display:block">0923 555 0107</span>
+              </td>
+              <td class="small">Court 3 — Covered</td>
+              <td class="nowrap small">
+                Sep 21                <span class="muted">6:00 AM – 8:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱800.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000008</code></td>
+              <td>
+                <strong class="small">Bea Ocampo</strong>
+                <span class="tiny muted" style="display:block">0922 555 0106</span>
+              </td>
+              <td class="small">Court 2 — Garden</td>
+              <td class="nowrap small">
+                Sep 20                <span class="muted">7:00 PM – 8:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Walk In</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000007</code></td>
+              <td>
+                <strong class="small">Job Mercado</strong>
+                <span class="tiny muted" style="display:block">0919 555 0103</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Sep 20                <span class="muted">6:00 PM – 8:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+              <td class="text-right nowrap">₱700.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000006</code></td>
+              <td>
+                <strong class="small">Trina Bautista</strong>
+                <span class="tiny muted" style="display:block">0924 555 0108</span>
+              </td>
+              <td class="small">Court 4 — Practice</td>
+              <td class="nowrap small">
+                Sep 19                <span class="muted">3:00 PM – 4:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-bad">No Show</span></td>
+              <td class="text-right nowrap">₱250.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000005</code></td>
+              <td>
+                <strong class="small">Divina Salazar</strong>
+                <span class="tiny muted" style="display:block">0926 555 0202</span>
+              </td>
+              <td class="small">Court 2 — Garden</td>
+              <td class="nowrap small">
+                Sep 18                <span class="muted">8:00 AM – 10:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Walk In</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱700.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000004</code></td>
+              <td>
+                <strong class="small">Carmela Dizon</strong>
+                <span class="tiny muted" style="display:block">0920 555 0104</span>
+              </td>
+              <td class="small">Court 3 — Covered</td>
+              <td class="nowrap small">
+                Sep 17                <span class="muted">4:00 PM – 5:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱400.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000003</code></td>
+              <td>
+                <strong class="small">Rafael Santos</strong>
+                <span class="tiny muted" style="display:block">0921 555 0105</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Sep 16                <span class="muted">7:00 PM – 9:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Walk In</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱700.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000020</code></td>
+              <td>
+                <strong class="small">Nico Aguilar</strong>
+                <span class="tiny muted" style="display:block">0923 555 0107</span>
+              </td>
+              <td class="small">Mango Function Hall</td>
+              <td class="nowrap small">
+                Sep 15                <span class="muted">6:00 PM – 10:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Phone</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱7,200.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000002</code></td>
+              <td>
+                <strong class="small">Liza Ramos</strong>
+                <span class="tiny muted" style="display:block">0918 555 0102</span>
+              </td>
+              <td class="small">Court 2 — Garden</td>
+              <td class="nowrap small">
+                Sep 15                <span class="muted">7:00 AM – 8:00 AM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱350.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000001</code></td>
+              <td>
+                <strong class="small">Marco Villanueva</strong>
+                <span class="tiny muted" style="display:block">0917 555 0101</span>
+              </td>
+              <td class="small">Court 1 — Center</td>
+              <td class="nowrap small">
+                Sep 14                <span class="muted">6:00 PM – 8:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-info">Completed</span></td>
+              <td class="text-right nowrap">₱700.00</td>
+              <td class="text-right nowrap">
+                                  <span class="badge badge-ok">Paid</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                      <tr>
+              <td class="nowrap"><code class="tiny">MDC-2026-000017</code></td>
+              <td>
+                <strong class="small">Rafael Santos</strong>
+                <span class="tiny muted" style="display:block">0921 555 0105</span>
+              </td>
+              <td class="small">Court 3 — Covered</td>
+              <td class="nowrap small">
+                Sep 13                <span class="muted">7:00 PM – 8:00 PM</span>
+              </td>
+              <td><span class="badge badge-muted">Online</span></td>
+              <td><span class="badge badge-bad">Rejected</span></td>
+              <td class="text-right nowrap">₱400.00</td>
+              <td class="text-right nowrap">
+                                  <span class="tiny muted">—</span>
+                              </td>
+              <td class="text-right">
+                <a href="admin-reservation-approved.html" class="btn btn-sm btn-ghost" aria-label="Open">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg>                </a>
+              </td>
+            </tr>
+                  </tbody>
+      </table>
+    </div>
+  </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      var method = (form.getAttribute('method') || 'get').toLowerCase();
+      if (method === 'post') {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('This is a static preview of the interface.\n\nSubmitting forms, approving reservations and generating matches all require the live PHP + MySQL application. See the README in the source repository for setup instructions.');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

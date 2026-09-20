@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Reserve pickleball courts and the function hall at Mango Drive Cafe, and get matched with players at your level.">
+<meta name="theme-color" content="#0f172a">
+<title>Reserve a court</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>
+  // Set the theme before first paint so there is no flash of the wrong theme.
+  (function () {
+    try {
+      var saved = localStorage.getItem('mdc-theme');
+      var dark  = saved ? saved === 'dark'
+                        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body class="has-tabbar">
+<div id="preview-banner" style="position:sticky;top:0;z-index:200;background:#0f172a;color:#fff;
+     font-size:.82rem;padding:9px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+     border-bottom:2px solid #a3e635;font-family:-apple-system,'Segoe UI',sans-serif">
+  <strong style="color:#a3e635">STATIC PREVIEW</strong>
+  <span style="opacity:.85">Real screens, sample data &mdash; no live database. Forms are disabled.</span>
+  <span style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap">
+    <a href="dashboard.html" style="color:#fff;text-decoration:underline">View as customer</a>
+    <a href="admin-dashboard.html" style="color:#fff;text-decoration:underline">View as admin</a>
+    <a href="https://github.com/Angelordsz/MANGO-CAFE-PICKLEBALL" style="color:#fff;text-decoration:underline">Source code</a>
+  </span>
+</div>
+
+
+<a class="skip-link" href>Skip to main content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="dashboard.html" class="brand">
+      <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><ellipse cx="11" cy="9" rx="6.5" ry="7.5"/><path d="M13.5 16.5 16 22"/></svg></span>
+      <span class="brand-text">
+        Mango Drive
+        <span>Pickleball</span>
+      </span>
+    </a>
+
+          <nav class="topnav" aria-label="Main">
+        <a href="dashboard.html"    class="">Home</a>
+        <a href="availability.html" class="">Availability</a>
+        <a href="reserve.html"      class="active">Reserve</a>
+        <a href="matching.html"     class="">Matching</a>
+        <a href="reservations.html" class="">My Bookings</a>
+        <a href="events.html"       class="">Events</a>
+      </nav>
+    
+    <div class="topbar-actions">
+      <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch colour theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="theme-sun" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M1.5 12H4M20 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>      </button>
+
+              <a href="notifications.html" class="icon-btn" aria-label="Notifications (6 unread)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg>          <span class="dot">6</span>        </a>
+
+        <div class="menu" data-menu>
+          <button type="button" class="avatar" data-menu-trigger aria-haspopup="true" aria-label="Account menu">
+            MV          </button>
+          <div class="menu-panel" data-menu-panel>
+            <div style="padding:9px 12px">
+              <strong style="display:block">Marco Villanueva</strong>
+              <span class="small muted">marco.villanueva@example.ph</span>
+            </div>
+            <div class="menu-divider"></div>
+                          <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg> My profile</a>
+              <a href="reservations.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg> My reservations</a>
+              <a href="matching-results.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6M4 4l5 5"/></svg> Match results</a>
+                        <div class="menu-divider"></div>
+            <form method="post" action="index.html">
+              <input type="hidden" name="_token" value="d9881a335798a4b218d08a15a99d521764f9c6f708ca3716104eec7c2ca6aeca">              <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg> Log out</button>
+            </form>
+          </div>
+        </div>
+          </div>
+  </div>
+</header>
+
+<main id="main" class="page">
+  <div class="container">
+    
+    
+<div class="row mb-2" style="gap:10px">
+  <a href="reserve.html" class="icon-btn" style="background:var(--bg-sunken);color:var(--text)" aria-label="Back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>  </a>
+  <div>
+    <h1 style="margin:0">Reserve a court</h1>
+    <p class="small muted" style="margin:0">Pick a facility, a date, then your time slots.</p>
+  </div>
+</div>
+
+<div class="steps">
+  <div class="step done"><div class="step-bar"></div>Facility</div>
+  <div class="step done"><div class="step-bar"></div>Date</div>
+  <div class="step current"><div class="step-bar"></div>Time</div>
+  <div class="step"><div class="step-bar"></div>Confirm</div>
+</div>
+
+<!-- Step 1: facility -->
+  <div class="card mb-2">
+    <p class="label">Choose a court</p>
+    <div class="row row-wrap" style="gap:8px">
+              <a href="reserve-court.html"
+           class="pill badge-accent"
+           style="background:var(--accent);color:var(--accent-ink);font-weight:700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg>          Court 1 — Center          <span class="tiny">· 350.00/hr</span>
+        </a>
+              <a href="reserve-court.html"
+           class="pill "
+           style="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg>          Court 2 — Garden          <span class="tiny">· 350.00/hr</span>
+        </a>
+              <a href="reserve-court.html"
+           class="pill "
+           style="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg>          Court 3 — Covered          <span class="tiny">· 400.00/hr</span>
+        </a>
+              <a href="reserve-court.html"
+           class="pill "
+           style="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg>          Court 4 — Practice          <span class="tiny">· 250.00/hr</span>
+        </a>
+          </div>
+  </div>
+
+<!-- Step 2: date -->
+<div class="card mb-2">
+  <div class="row-between mb-1">
+    <p class="label" style="margin:0">Choose a date</p>
+    <form method="get" action="reserve-court.html" class="row" style="gap:6px">
+      <input type="hidden" name="facility" value="1">
+      <input type="date" name="date" class="input" style="padding:6px 9px;font-size:.82rem"
+             value="2026-09-20" min="2026-09-20" max="2026-10-20"
+             onchange="this.form.submit()">
+    </form>
+  </div>
+
+  <div class="daystrip" data-daystrip>
+          <div class="day active" data-date="2026-09-20"
+           role="button" tabindex="0">
+        <div class="day-dow">Sun</div>
+        <div class="day-num">20</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-21"
+           role="button" tabindex="0">
+        <div class="day-dow">Mon</div>
+        <div class="day-num">21</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-22"
+           role="button" tabindex="0">
+        <div class="day-dow">Tue</div>
+        <div class="day-num">22</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-23"
+           role="button" tabindex="0">
+        <div class="day-dow">Wed</div>
+        <div class="day-num">23</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-24"
+           role="button" tabindex="0">
+        <div class="day-dow">Thu</div>
+        <div class="day-num">24</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-25"
+           role="button" tabindex="0">
+        <div class="day-dow">Fri</div>
+        <div class="day-num">25</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-26"
+           role="button" tabindex="0">
+        <div class="day-dow">Sat</div>
+        <div class="day-num">26</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-27"
+           role="button" tabindex="0">
+        <div class="day-dow">Sun</div>
+        <div class="day-num">27</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-28"
+           role="button" tabindex="0">
+        <div class="day-dow">Mon</div>
+        <div class="day-num">28</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-29"
+           role="button" tabindex="0">
+        <div class="day-dow">Tue</div>
+        <div class="day-num">29</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-09-30"
+           role="button" tabindex="0">
+        <div class="day-dow">Wed</div>
+        <div class="day-num">30</div>
+        <div class="day-mon">Sep</div>
+      </div>
+          <div class="day " data-date="2026-10-01"
+           role="button" tabindex="0">
+        <div class="day-dow">Thu</div>
+        <div class="day-num">1</div>
+        <div class="day-mon">Oct</div>
+      </div>
+          <div class="day " data-date="2026-10-02"
+           role="button" tabindex="0">
+        <div class="day-dow">Fri</div>
+        <div class="day-num">2</div>
+        <div class="day-mon">Oct</div>
+      </div>
+          <div class="day " data-date="2026-10-03"
+           role="button" tabindex="0">
+        <div class="day-dow">Sat</div>
+        <div class="day-num">3</div>
+        <div class="day-mon">Oct</div>
+      </div>
+          <div class="day " data-date="2026-10-04"
+           role="button" tabindex="0">
+        <div class="day-dow">Sun</div>
+        <div class="day-num">4</div>
+        <div class="day-mon">Oct</div>
+      </div>
+      </div>
+</div>
+
+<!-- Step 3: slots -->
+<form method="get" action="preview-notice.html" data-slot-form>
+  <input type="hidden" name="type" value="court">
+  <input type="hidden" name="facility_id" value="1">
+
+  <div class="card mb-2">
+    <div class="row-between mb-1">
+      <div>
+        <p class="label" style="margin:0">Choose your time</p>
+        <p class="small muted" style="margin:0">
+          Court 1 — Center · Today                  </p>
+      </div>
+      <span class="pill">0 open</span>
+    </div>
+
+          <div class="slots mb-2">
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="111"
+                   data-index="1"
+                   data-price="350.00"
+                   data-start="7:00 AM"
+                   data-end="8:00 AM"
+                   disabled>
+            <span class="slot-time">7:00 AM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="112"
+                   data-index="2"
+                   data-price="350.00"
+                   data-start="8:00 AM"
+                   data-end="9:00 AM"
+                   disabled>
+            <span class="slot-time">8:00 AM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="113"
+                   data-index="3"
+                   data-price="350.00"
+                   data-start="9:00 AM"
+                   data-end="10:00 AM"
+                   disabled>
+            <span class="slot-time">9:00 AM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="114"
+                   data-index="4"
+                   data-price="350.00"
+                   data-start="10:00 AM"
+                   data-end="11:00 AM"
+                   disabled>
+            <span class="slot-time">10:00 AM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="115"
+                   data-index="5"
+                   data-price="350.00"
+                   data-start="11:00 AM"
+                   data-end="12:00 PM"
+                   disabled>
+            <span class="slot-time">11:00 AM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="116"
+                   data-index="6"
+                   data-price="350.00"
+                   data-start="12:00 PM"
+                   data-end="1:00 PM"
+                   disabled>
+            <span class="slot-time">12:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="117"
+                   data-index="7"
+                   data-price="350.00"
+                   data-start="1:00 PM"
+                   data-end="2:00 PM"
+                   disabled>
+            <span class="slot-time">1:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="118"
+                   data-index="8"
+                   data-price="350.00"
+                   data-start="2:00 PM"
+                   data-end="3:00 PM"
+                   disabled>
+            <span class="slot-time">2:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="119"
+                   data-index="9"
+                   data-price="350.00"
+                   data-start="3:00 PM"
+                   data-end="4:00 PM"
+                   disabled>
+            <span class="slot-time">3:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="120"
+                   data-index="10"
+                   data-price="350.00"
+                   data-start="4:00 PM"
+                   data-end="5:00 PM"
+                   disabled>
+            <span class="slot-time">4:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-blocked"
+                 title="Too close to start time">
+            <input type="checkbox" name="slots[]" value="121"
+                   data-index="11"
+                   data-price="350.00"
+                   data-start="5:00 PM"
+                   data-end="6:00 PM"
+                   disabled>
+            <span class="slot-time">5:00 PM</span>
+            <span class="slot-price">
+                              Too soon
+                          </span>
+          </label>
+                            <label class="slot is-taken"
+                 title="Booked">
+            <input type="checkbox" name="slots[]" value="122"
+                   data-index="12"
+                   data-price="350.00"
+                   data-start="6:00 PM"
+                   data-end="7:00 PM"
+                   disabled>
+            <span class="slot-time">6:00 PM</span>
+            <span class="slot-price">
+                              Booked
+                          </span>
+          </label>
+                            <label class="slot is-taken"
+                 title="Booked">
+            <input type="checkbox" name="slots[]" value="123"
+                   data-index="13"
+                   data-price="350.00"
+                   data-start="7:00 PM"
+                   data-end="8:00 PM"
+                   disabled>
+            <span class="slot-time">7:00 PM</span>
+            <span class="slot-price">
+                              Booked
+                          </span>
+          </label>
+              </div>
+
+      <div class="legend">
+        <span><i class="l-free"></i> Available</span>
+        <span><i class="l-sel"></i> Selected</span>
+        <span><i class="l-taken"></i> Booked / unavailable</span>
+      </div>
+      </div>
+
+      <div class="card mb-2">
+      <p class="label">Booking details</p>
+
+      <div class="grid grid-2" style="gap:0 12px">
+        <div class="field">
+          <label for="party_size">Number of players</label>
+          <input type="number" id="party_size" name="party_size" class="input"
+                 value="4" min="1" max="8">
+        </div>
+
+              </div>
+
+      <div class="field" style="margin-bottom:0">
+        <label for="customer_notes">Notes for the café <span class="label-hint">(optional)</span></label>
+        <textarea id="customer_notes" name="customer_notes" class="textarea" rows="2"
+                  maxlength="500" placeholder="Anything the staff should know?"></textarea>
+      </div>
+    </div>
+
+    <!-- Running summary -->
+    <div class="card card-lg" style="position:sticky;bottom:calc(var(--tab-h) + 10px);z-index:20">
+      <div class="summary mb-2">
+        <div class="summary-row">
+          <span class="muted">Court 1 — Center</span>
+          <span>₱350.00/hr</span>
+        </div>
+        <div class="summary-row">
+          <span class="muted">Date</span>
+          <span>Sun, Sep 20, 2026</span>
+        </div>
+        <div class="summary-row">
+          <span class="muted">Time</span>
+          <span data-range>No time selected</span>
+        </div>
+        <div class="summary-row">
+          <span class="muted">Duration</span>
+          <span data-hours>0 hours</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span data-total>₱0.00</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" data-submit disabled>
+        Review reservation
+      </button>
+
+      <p class="tiny muted text-center mt-1" style="margin-bottom:0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>        Payment is made at the café counter — nothing is charged online.
+      </p>
+    </div>
+  </form>
+  </div>
+</main>
+
+  <nav class="tabbar" aria-label="Primary">
+    <a href="dashboard.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span> Home
+    </a>
+    <a href="availability.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span> Explore
+    </a>
+    <a href="reserve.html" class="active">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span> Reserve
+    </a>
+    <a href="reservations.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg></span> Bookings
+    </a>
+    <a href="profile.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span> Profile
+    </a>
+  </nav>
+
+
+<script src="assets/js/app.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      var method = (form.getAttribute('method') || 'get').toLowerCase();
+      if (method === 'post') {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('This is a static preview of the interface.\n\nSubmitting forms, approving reservations and generating matches all require the live PHP + MySQL application. See the README in the source repository for setup instructions.');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

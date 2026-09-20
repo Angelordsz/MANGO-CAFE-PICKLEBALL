@@ -8,6 +8,14 @@ see real court and function-hall availability, submit reservation requests, and 
 automatic player matching; staff and administrators approve bookings, register walk-ins,
 record payments and generate reports.
 
+## 🔗 [Click through the live preview](https://angelordsz.github.io/MANGO-CAFE-PICKLEBALL/)
+
+No install, no login needed. It's the real interface with real sample data — a static
+snapshot, so forms show an explanation instead of submitting (there is no server behind it).
+The banner at the top of every screen lets you jump straight into the **customer** view or
+the **admin** view. To click a live, fully working copy — actually book a court, approve a
+request, generate matches — see [Quick start](#quick-start-xampp) below.
+
 ---
 
 ## Quick start (XAMPP)

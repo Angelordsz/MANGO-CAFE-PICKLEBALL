@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Reserve pickleball courts and the function hall at Mango Drive Cafe, and get matched with players at your level.">
+<meta name="theme-color" content="#0f172a">
+<title>Reservation MDC-2026-000022</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>
+  // Set the theme before first paint so there is no flash of the wrong theme.
+  (function () {
+    try {
+      var saved = localStorage.getItem('mdc-theme');
+      var dark  = saved ? saved === 'dark'
+                        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body class="has-tabbar">
+<div id="preview-banner" style="position:sticky;top:0;z-index:200;background:#0f172a;color:#fff;
+     font-size:.82rem;padding:9px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+     border-bottom:2px solid #a3e635;font-family:-apple-system,'Segoe UI',sans-serif">
+  <strong style="color:#a3e635">STATIC PREVIEW</strong>
+  <span style="opacity:.85">Real screens, sample data &mdash; no live database. Forms are disabled.</span>
+  <span style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap">
+    <a href="dashboard.html" style="color:#fff;text-decoration:underline">View as customer</a>
+    <a href="admin-dashboard.html" style="color:#fff;text-decoration:underline">View as admin</a>
+    <a href="https://github.com/Angelordsz/MANGO-CAFE-PICKLEBALL" style="color:#fff;text-decoration:underline">Source code</a>
+  </span>
+</div>
+
+
+<a class="skip-link" href>Skip to main content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="dashboard.html" class="brand">
+      <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><ellipse cx="11" cy="9" rx="6.5" ry="7.5"/><path d="M13.5 16.5 16 22"/></svg></span>
+      <span class="brand-text">
+        Mango Drive
+        <span>Pickleball</span>
+      </span>
+    </a>
+
+          <nav class="topnav" aria-label="Main">
+        <a href="dashboard.html"    class="">Home</a>
+        <a href="availability.html" class="">Availability</a>
+        <a href="reserve.html"      class="">Reserve</a>
+        <a href="matching.html"     class="">Matching</a>
+        <a href="reservations.html" class="active">My Bookings</a>
+        <a href="events.html"       class="">Events</a>
+      </nav>
+    
+    <div class="topbar-actions">
+      <button type="button" class="icon-btn" data-theme-toggle aria-label="Switch colour theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="theme-sun" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M1.5 12H4M20 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>      </button>
+
+              <a href="notifications.html" class="icon-btn" aria-label="Notifications (6 unread)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg>          <span class="dot">6</span>        </a>
+
+        <div class="menu" data-menu>
+          <button type="button" class="avatar" data-menu-trigger aria-haspopup="true" aria-label="Account menu">
+            MV          </button>
+          <div class="menu-panel" data-menu-panel>
+            <div style="padding:9px 12px">
+              <strong style="display:block">Marco Villanueva</strong>
+              <span class="small muted">marco.villanueva@example.ph</span>
+            </div>
+            <div class="menu-divider"></div>
+                          <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg> My profile</a>
+              <a href="reservations.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg> My reservations</a>
+              <a href="matching-results.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6M4 4l5 5"/></svg> Match results</a>
+                        <div class="menu-divider"></div>
+            <form method="post" action="index.html">
+              <input type="hidden" name="_token" value="d9881a335798a4b218d08a15a99d521764f9c6f708ca3716104eec7c2ca6aeca">              <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg> Log out</button>
+            </form>
+          </div>
+        </div>
+          </div>
+  </div>
+</header>
+
+<main id="main" class="page">
+  <div class="container">
+    
+    
+<div class="row mb-2" style="gap:10px">
+  <a href="reservations.html" class="icon-btn" style="background:var(--bg-sunken);color:var(--text)" aria-label="Back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>  </a>
+  <div class="grow">
+    <h1 style="margin:0">Court 1 — Center</h1>
+    <p class="small muted" style="margin:0">MDC-2026-000022</p>
+  </div>
+  <span class="badge badge-ok">Approved</span>
+</div>
+
+  <div class="alert alert-success mb-2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="m5 13 4 4L19 7"/></svg>    <span><strong>Confirmed.</strong> See you at Mango Drive Café. Please arrive 10 minutes early.</span>
+  </div>
+
+<div class="card card-lg mb-2">
+  <div class="summary">
+    <div class="summary-row">
+      <span class="muted"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/></svg> Date</span>
+      <strong>Sunday, October 4, 2026</strong>
+    </div>
+    <div class="summary-row">
+      <span class="muted"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg> Time</span>
+      <strong>7:00 AM – 8:00 AM</strong>
+    </div>
+    <div class="summary-row">
+      <span class="muted">Duration</span>
+      <strong>1 hour</strong>
+    </div>
+    <div class="summary-row">
+      <span class="muted">Players</span>
+      <strong>4</strong>
+    </div>
+        <div class="summary-row">
+      <span class="muted"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Location</span>
+      <strong>Mango Drive Café</strong>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-2">
+  <p class="label">Payment</p>
+  <div class="summary">
+          <div class="summary-row">
+        <span class="muted">7:00 AM – 8:00 AM</span>
+        <span>₱350.00</span>
+      </div>
+        <div class="summary-row summary-total">
+      <span>Total</span>
+      <span>₱350.00</span>
+    </div>
+      </div>
+
+  <p class="field-help mt-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>    Payment is collected at the café counter. Staff will record it against this reservation.
+  </p>
+</div>
+
+
+  <div class="card mb-2">
+    <p class="label">Note from the café</p>
+    <p class="small" style="margin:0">Approved by the test suite</p>
+  </div>
+
+      <div class="card">
+      <p class="label">Need to change this?</p>
+      <div class="btn-group">
+        <a href="reservation-detail.html" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/></svg> Reschedule
+        </a>
+        <button type="button" class="btn btn-ghost" onclick="document.getElementById('cancel-box').hidden = false; this.hidden = true;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12"/></svg> Cancel reservation
+        </button>
+      </div>
+
+      <form method="post" action="reservation-detail.html"
+            id="cancel-box" hidden class="mt-2" data-guard>
+        <input type="hidden" name="_token" value="d9881a335798a4b218d08a15a99d521764f9c6f708ca3716104eec7c2ca6aeca">        <div class="field">
+          <label for="cancel_reason">Reason for cancelling</label>
+          <input type="text" id="cancel_reason" name="cancel_reason" class="input"
+                 placeholder="Change of plans" maxlength="255" required>
+        </div>
+        <button type="submit" class="btn btn-danger btn-block"
+                data-confirm="Cancel this reservation? This cannot be undone.">
+          Confirm cancellation
+        </button>
+      </form>
+    </div>
+    </div>
+</main>
+
+  <nav class="tabbar" aria-label="Primary">
+    <a href="dashboard.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></span> Home
+    </a>
+    <a href="availability.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span> Explore
+    </a>
+    <a href="reserve.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></span> Reserve
+    </a>
+    <a href="reservations.html" class="active">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg></span> Bookings
+    </a>
+    <a href="profile.html" class="">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span> Profile
+    </a>
+  </nav>
+
+
+<script src="assets/js/app.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      var method = (form.getAttribute('method') || 'get').toLowerCase();
+      if (method === 'post') {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('This is a static preview of the interface.\n\nSubmitting forms, approving reservations and generating matches all require the live PHP + MySQL application. See the README in the source repository for setup instructions.');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -15,3 +15,7 @@ ONLINE-PICKLEBALL-2.docx
 
 # Local runtime state
 storage/logs/*.log
+
+# Static preview build scratch (regenerate with scripts/static-preview/)
+scripts/static-preview/_raw/
+scripts/static-preview/*.jar

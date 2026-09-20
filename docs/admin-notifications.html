@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>Send notifications · Back office</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('mdc-theme');
+      var dark  = saved ? saved === 'dark'
+                        : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+</head>
+<body>
+<div id="preview-banner" style="position:sticky;top:0;z-index:200;background:#0f172a;color:#fff;
+     font-size:.82rem;padding:9px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+     border-bottom:2px solid #a3e635;font-family:-apple-system,'Segoe UI',sans-serif">
+  <strong style="color:#a3e635">STATIC PREVIEW</strong>
+  <span style="opacity:.85">Real screens, sample data &mdash; no live database. Forms are disabled.</span>
+  <span style="margin-left:auto;display:flex;gap:12px;flex-wrap:wrap">
+    <a href="dashboard.html" style="color:#fff;text-decoration:underline">View as customer</a>
+    <a href="admin-dashboard.html" style="color:#fff;text-decoration:underline">View as admin</a>
+    <a href="https://github.com/Angelordsz/MANGO-CAFE-PICKLEBALL" style="color:#fff;text-decoration:underline">Source code</a>
+  </span>
+</div>
+
+
+<a class="skip-link" href>Skip to main content</a>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <button type="button" class="icon-btn no-print" data-sidebar-toggle aria-expanded="false" aria-label="Toggle menu"
+            style="display:grid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 6h18M3 12h18M3 18h18"/></svg>    </button>
+
+    <a href="admin-dashboard.html" class="brand">
+      <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><ellipse cx="11" cy="9" rx="6.5" ry="7.5"/><path d="M13.5 16.5 16 22"/></svg></span>
+      <span class="brand-text">
+        Mango Drive
+        <span>Administrator</span>
+      </span>
+    </a>
+
+    <div class="topbar-actions">
+      <button type="button" class="icon-btn no-print" data-theme-toggle aria-label="Switch colour theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v2.5M12 20v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M1.5 12H4M20 12h2.5M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>      </button>
+
+      <div class="menu" data-menu>
+        <button type="button" class="avatar" data-menu-trigger aria-haspopup="true" aria-label="Account menu">
+          AD        </button>
+        <div class="menu-panel" data-menu-panel>
+          <div style="padding:9px 12px">
+            <strong style="display:block">admin</strong>
+            <span class="small muted">Admin</span>
+          </div>
+          <div class="menu-divider"></div>
+          <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg> View public site</a>
+          <div class="menu-divider"></div>
+          <form method="post" action="index.html">
+            <input type="hidden" name="_token" value="853ea9799031ed9339343904396699c89b96cd3dd6fec8de74995b458820ec17">            <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></svg> Log out</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container page">
+  <div class="admin-shell">
+
+    <nav class="sidebar no-print" aria-label="Back office">
+      <div class="sidebar-group">
+        <p class="sidebar-title">Overview</p>
+        <a href="admin-dashboard.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12.5" y="8" width="3" height="10"/><rect x="18" y="5" width="3" height="13"/></svg> Dashboard
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Reservations</p>
+        <a href="admin-reservations.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 9.5V7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v2.5a2.5 2.5 0 0 0 0 5V17a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg> Reservations
+          <span class="count">5</span>        </a>
+        <a href="admin-schedules.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M8 2.5v4M16 2.5v4M3 10h18"/></svg> Facility schedules
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Players &amp; play</p>
+        <a href="admin-players.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M17 8.2a3 3 0 0 1 0 5.6M18 20c0-2.2-.8-3.9-2-5"/></svg> Player records
+        </a>
+        <a href="admin-matching.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6M4 4l5 5"/></svg> Player matching
+        </a>
+        <a href="admin-events.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M7 4h10v5a5 5 0 0 1-10 0Z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/><path d="M12 14v4M8.5 21h7l-.5-3h-6Z"/></svg> Events
+        </a>
+      </div>
+
+      <div class="sidebar-group">
+        <p class="sidebar-title">Money</p>
+        <a href="admin-payments.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg> Payments
+        </a>
+        <a href="admin-reports.html" class="">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Reports
+        </a>
+      </div>
+
+              <div class="sidebar-group">
+          <p class="sidebar-title">Facilities</p>
+          <a href="admin-courts.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M12 5v14M2.5 12h19"/></svg> Courts
+          </a>
+          <a href="admin-halls.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg> Function halls
+          </a>
+        </div>
+
+        <div class="sidebar-group">
+          <p class="sidebar-title">Administration</p>
+          <a href="admin-users.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg> User accounts
+          </a>
+          <a href="admin-notifications.html" class="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg> Send notifications
+          </a>
+          <a href="admin-logs.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg> System logs
+          </a>
+          <a href="admin-settings.html" class="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 9 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 4.6 9a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></svg> Settings
+          </a>
+        </div>
+          </nav>
+
+    <main id="main">
+      
+      <div class="row-between mb-2">
+  <div>
+    <h1 style="margin:0">Send notifications</h1>
+    <p class="small muted" style="margin:0">Announcements delivered inside the app.</p>
+  </div>
+</div>
+
+<div class="grid grid-3 mb-2">
+  <div class="stat stat-accent">
+    <p class="stat-label">Total sent</p>
+    <p class="stat-value">32</p>
+  </div>
+  <div class="stat">
+    <p class="stat-label">Unread</p>
+    <p class="stat-value">27</p>
+  </div>
+  <div class="stat">
+    <p class="stat-label">Today</p>
+    <p class="stat-value">32</p>
+  </div>
+</div>
+
+<div class="alert alert-info mb-3">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>  <span>
+    Notifications appear in the recipient's in-app inbox. Email and SMS gateways are outside
+    the approved project scope, so walk-in players without an account cannot be reached here.
+  </span>
+</div>
+
+<div class="grid grid-2">
+  <div class="card">
+    <h2 class="mb-2">Compose</h2>
+
+    <form method="post" action="admin-notifications.html" data-guard>
+      <input type="hidden" name="_token" value="853ea9799031ed9339343904396699c89b96cd3dd6fec8de74995b458820ec17">
+      <div class="field">
+        <label for="audience">Send to</label>
+        <select id="audience" name="audience" class="select" required
+                onchange="document.getElementById('single-box').hidden = this.value !== 'single'">
+          <option value="all">Everyone with an account</option>
+          <option value="customer">All customers</option>
+          <option value="staff">Staff only</option>
+          <option value="admin">Administrators only</option>
+          <option value="single">One specific player</option>
+        </select>
+      </div>
+
+      <div id="single-box" hidden>
+        <div data-player-search="/admin/players/search" style="position:relative">
+          <div class="field">
+            <label for="player_search">Find player</label>
+            <input type="search" id="player_search" class="input" placeholder="Start typing a name…" autocomplete="off">
+            <input type="hidden" name="player_id">
+          </div>
+          <div data-results hidden
+               style="border:1px solid var(--border);border-radius:var(--radius-sm);max-height:220px;overflow:auto;margin-top:-8px"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" class="input "
+               value="" required maxlength="150" placeholder="Courts closed Sunday">
+              </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" class="textarea "
+                  rows="4" required maxlength="2000"></textarea>
+              </div>
+
+      <div class="field">
+        <label for="link">Link <span class="label-hint">(optional, e.g. /events)</span></label>
+        <input type="text" id="link" name="link" class="input" maxlength="255" value="">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" data-loading="Sending…">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg> Send notification
+      </button>
+    </form>
+  </div>
+
+  <div class="card card-flush">
+    <div class="card-head"><h2>Recently sent</h2></div>
+    <div class="card-body" style="padding-top:0;max-height:520px;overflow:auto">
+                        <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 22 at 7:00 AM. You are on Team 1.</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 22 at 7:00 AM. You are on Team 1.</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 22 at 7:00 AM. You are on Team 2.</p>
+              <span class="tiny muted">
+                to trina.b                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 22 at 7:00 AM. You are on Team 2.</p>
+              <span class="tiny muted">
+                to job.m                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">New reservation request</strong>
+              <p class="tiny muted" style="margin:0">Marco Villanueva requested Court 1 — Center on Oct 4 at 8:00 AM.</p>
+              <span class="tiny muted">
+                to admin                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Reservation request received</strong>
+              <p class="tiny muted" style="margin:0">We received your request MDC-2026-000023 for Court 1 — Center. You will be notified once …</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Reservation approved</strong>
+              <p class="tiny muted" style="margin:0">Your court reservation for Oct 4, 2026 at 8:00 AM has been approved. Reference MDC-2026-0…</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:22 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to ANGELO                · Sep 20, 12:18 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Reservation approved</strong>
+              <p class="tiny muted" style="margin:0">Your court reservation for Oct 4, 2026 at 7:00 AM has been approved. Reference MDC-2026-0…</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 21 at 6:00 PM. You are on Team 1.</p>
+              <span class="tiny muted">
+                to carmela.d                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 21 at 6:00 PM. You are on Team 1.</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 21 at 6:00 PM. You are on Team 2.</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Your match is set</strong>
+              <p class="tiny muted" style="margin:0">Match 1 on Court 1 — Center, Sep 21 at 6:00 PM. You are on Team 2.</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">No match this round</strong>
+              <p class="tiny muted" style="margin:0">There were not enough players to place you in a match. The front desk will try to fit you…</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">No match this round</strong>
+              <p class="tiny muted" style="margin:0">There were not enough players to place you in a match. The front desk will try to fit you…</p>
+              <span class="tiny muted">
+                to bea.o                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">New reservation request</strong>
+              <p class="tiny muted" style="margin:0">Marco Villanueva requested Court 1 — Center on Oct 4 at 7:00 AM.</p>
+              <span class="tiny muted">
+                to admin                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Reservation request received</strong>
+              <p class="tiny muted" style="margin:0">We received your request MDC-2026-000022 for Court 1 — Center. You will be notified once …</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:12 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to marco.v                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-muted">
+              Read            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to liza.r                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to job.m                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to carmela.d                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-muted">
+              Read            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to rafael.s                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-muted">
+              Read            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to bea.o                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-muted">
+              Read            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to nico.a                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Welcome to Mango Drive Pickleball</strong>
+              <p class="tiny muted" style="margin:0">Your account is ready. Reserve a court, or sign up for player matching to get paired with…</p>
+              <span class="tiny muted">
+                to trina.b                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-muted">
+              Read            </span>
+          </div>
+                  <div class="list-item">
+            <span class="thumb" style="width:34px;height:34px"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true" focusable="false"><path d="M18 8.5a6 6 0 1 0-12 0c0 5-2 6.5-2 6.5h16s-2-1.5-2-6.5"/><path d="M10.5 19a1.8 1.8 0 0 0 3 0"/></svg></span>
+            <div class="grow">
+              <strong class="small" style="display:block">Court 4 closed for resurfacing</strong>
+              <p class="tiny muted" style="margin:0">Court 4 will be closed for resurfacing on September 23 from 8 AM to 11 AM. Sorry for the …</p>
+              <span class="tiny muted">
+                to player                · Sep 20, 12:11 PM              </span>
+            </div>
+            <span class="badge badge-warn">
+              Unread            </span>
+          </div>
+                  </div>
+  </div>
+</div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/js/app.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('form').forEach(function (form) {
+      var method = (form.getAttribute('method') || 'get').toLowerCase();
+      if (method === 'post') {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          alert('This is a static preview of the interface.\n\nSubmitting forms, approving reservations and generating matches all require the live PHP + MySQL application. See the README in the source repository for setup instructions.');
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>
