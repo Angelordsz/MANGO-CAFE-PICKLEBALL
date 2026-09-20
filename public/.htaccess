@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------------------
+# Front-controller routing + hardening.
+# Kept portable: works on Apache 2.4 with mod_php, CGI/FastCGI or LiteSpeed,
+# which matters on shared hosts such as InfinityFree.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Let the front controller work out its own base directory, so this file
+    # needs no changes whether the app is at a web root or in a sub-folder.
+    RewriteBase /
+
+    # Anything that is not a real file or directory goes to index.php.
+    # Trailing slashes are normalised by the router, not here.
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Never serve source, dumps or logs, wherever they end up.
+<FilesMatch "\.(log|sql|md|docx|ini|json|lock)$">
+    Require all denied
+</FilesMatch>
+
+DirectoryIndex index.php
+Options -Indexes

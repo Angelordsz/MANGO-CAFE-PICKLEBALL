@@ -1,0 +1,17 @@
+config/config.php
+storage/logs/*.log
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/events/.gitkeep
+!public/uploads/avatars/.gitkeep
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Client's capstone paper - private, not for a public repo
+ONLINE-PICKLEBALL-2.docx
+*.docx
+
+# Local runtime state
+storage/logs/*.log
